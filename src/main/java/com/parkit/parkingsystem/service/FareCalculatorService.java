@@ -10,7 +10,8 @@ public class FareCalculatorService {
 
 	TicketDAO ticketDAO = new TicketDAO();
 
-	if (ticketDAO.getNbTicket(ticket) > 1) { // the vehicle has been already parked, then it has a 5% discount
+	if (ticketDAO.getNbTicket(ticket.getVehicleRegNumber()) > 0) { // the vehicle has been already parked, then it
+								       // has a 5% discount
 	    calculateFare(ticket, true);
 	} else {
 	    calculateFare(ticket, false);
@@ -50,4 +51,5 @@ public class FareCalculatorService {
 	    }
 	}
     }
+
 }
