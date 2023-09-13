@@ -2,6 +2,7 @@ package com.parkit.parkingsystem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -106,26 +107,30 @@ public class ParkingServiceTest {
     @Test
     public void testGetNextParkingNumberIfAvailable() {
 	// GIVEN
+	ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, true);
 	when(inputReaderUtil.readSelection()).thenReturn(1);
-	when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
+	when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(parkingSpot.getId());
 
 	// WHEN
 	ParkingSpot parkingSpoted = parkingService.getNextParkingNumberIfAvailable();
 
 	// THEN
 	verify(parkingSpotDAO, times(1)).getNextAvailableSlot(any(ParkingType.class));
-	assertEquals(parkingSpoted.getId(), 1);
-	assertEquals(parkingSpoted.isAvailable(), true);
+	assertEquals(parkingSpot.getId(), parkingSpoted.getId());
+	assertTrue(parkingSpoted.isAvailable());
     }
 
     @Test
-    public void testGetNextParkingNumberIfAvailableParkingNumberNotFound() throws Exception {
+    public void testGetNextParkingNumberIfAvailableParkingNumberNotFound() {
 	// GIVEN
 	when(inputReaderUtil.readSelection()).thenReturn(1);
 	when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(0);
 
-	// WHEN & THEN
-	assertNull(parkingService.getNextParkingNumberIfAvailable());
+	// WHEN
+	ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
+
+	// THEN
+	assertNull(parkingSpot);
     }
 
     @Test
@@ -134,9 +139,9 @@ public class ParkingServiceTest {
 	when(inputReaderUtil.readSelection()).thenReturn(3);
 
 	// WHEN
-	parkingService.getNextParkingNumberIfAvailable();
+	ParkingSpot parkingSpot = parkingService.getNextParkingNumberIfAvailable();
 
 	// THEN
-	assertNull(parkingService.getNextParkingNumberIfAvailable());
+	assertNull(parkingSpot);
     }
 }
