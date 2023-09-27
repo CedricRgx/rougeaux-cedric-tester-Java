@@ -1,5 +1,8 @@
 package com.parkit.parkingsystem.constants;
 
+/**
+ * The DBConstants class contains queries for the interaction to the database
+ */
 public class DBConstants {
 
     public static final String GET_NEXT_PARKING_SPOT = "select min(PARKING_NUMBER) from parking where AVAILABLE = true and TYPE = ?";

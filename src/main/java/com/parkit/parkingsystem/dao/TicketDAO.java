@@ -14,12 +14,24 @@ import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 
+/**
+ * The TicketDAO class is used to interact between the Ticket objects and the
+ * database
+ */
 public class TicketDAO {
 
     private static final Logger logger = LogManager.getLogger("TicketDAO");
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    /**
+     * This method save a ticket in the database
+     * 
+     * @param Ticket object
+     * 
+     * @return a boolean value on the successful execution of the save action in the
+     *         database
+     */
     public boolean saveTicket(Ticket ticket) {
 	Connection con = null;
 	try {
@@ -41,6 +53,13 @@ public class TicketDAO {
 	}
     }
 
+    /**
+     * This method retrieves a ticket in the database
+     * 
+     * @param the vehicle reg number to retrieve
+     * 
+     * @return Ticket of the retrieved vehicle
+     */
     public Ticket getTicket(String vehicleRegNumber) {
 	Connection con = null;
 	Ticket ticket = null;
@@ -70,6 +89,14 @@ public class TicketDAO {
 	}
     }
 
+    /**
+     * This method updates a ticket in the database
+     * 
+     * @param Ticket of the vehicle
+     * 
+     * @return a boolean value on the successful execution of the update action in
+     *         the database
+     */
     public boolean updateTicket(Ticket ticket) {
 	Connection con = null;
 	try {
@@ -88,6 +115,14 @@ public class TicketDAO {
 	return false;
     }
 
+    /**
+     * This method get the number of ticket for the same vehicle
+     * 
+     * @param the vehicle reg number to retrieve
+     * 
+     * @return the number of the occurrence of the vehicle reg number in the
+     *         database
+     */
     public int getNbTicket(String regVehicle) {
 	Connection con = null;
 	int nbTicket = 0;

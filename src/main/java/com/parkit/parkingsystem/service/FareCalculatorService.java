@@ -7,10 +7,20 @@ import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.model.Ticket;
 
+/**
+ * The FareCalculatorService class represents the spot in the car park
+ */
 public class FareCalculatorService {
 
     private static final Logger logger = LogManager.getLogger("FareCalculatorService");
 
+    /**
+     * This method checks if a discount have to be applied on the parking price
+     * 
+     * @param Ticket object
+     * 
+     * @return void
+     */
     public void calculateFare(Ticket ticket) {
 
 	TicketDAO ticketDAO = new TicketDAO();
@@ -23,6 +33,13 @@ public class FareCalculatorService {
 	}
     }
 
+    /**
+     * This method calculates the parking price and store it in the ticket object
+     * 
+     * @param Ticket object, boolean of a discount
+     * 
+     * @return void
+     */
     public void calculateFare(Ticket ticket, boolean isDiscounted) {
 	if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
 	    throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
@@ -55,5 +72,4 @@ public class FareCalculatorService {
 	    }
 	}
     }
-
 }

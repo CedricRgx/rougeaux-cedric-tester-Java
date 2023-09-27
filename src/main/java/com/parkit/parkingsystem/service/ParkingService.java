@@ -12,6 +12,10 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
+/**
+ * the ParkingService class allows you to manage the entrances and exits of the
+ * car park
+ */
 public class ParkingService {
 
     private static final Logger logger = LogManager.getLogger("ParkingService");
@@ -28,6 +32,13 @@ public class ParkingService {
 	this.ticketDAO = ticketDAO;
     }
 
+    /**
+     * This method creates a ticket of a vehicle when it enters in the car park
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     public void processIncomingVehicle() {
 	try {
 	    ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
@@ -61,11 +72,26 @@ public class ParkingService {
 	}
     }
 
+    /**
+     * This method asks to the user to enter the vehicle registration number of his
+     * vehicle
+     * 
+     * @param none
+     * 
+     * @return the vehicle registration number
+     */
     private String getVehichleRegNumber() throws Exception {
 	System.out.println("Please type the vehicle registration number and press enter key");
 	return inputReaderUtil.readVehicleRegistrationNumber();
     }
 
+    /**
+     * This method finds the next available parking number spot
+     * 
+     * @param none
+     * 
+     * @return ParkingSpot Object
+     */
     public ParkingSpot getNextParkingNumberIfAvailable() {
 	int parkingNumber = 0;
 	ParkingSpot parkingSpot = null;
@@ -85,6 +111,13 @@ public class ParkingService {
 	return parkingSpot;
     }
 
+    /**
+     * This method defines the type of vehicle from the user
+     * 
+     * @param none
+     * 
+     * @return ParkingType Object
+     */
     private ParkingType getVehichleType() {
 	System.out.println("Please select vehicle type from menu");
 	System.out.println("1 CAR");
@@ -104,6 +137,13 @@ public class ParkingService {
 	}
     }
 
+    /**
+     * This method processes the exit of the vehicle
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     public void processExitingVehicle() {
 	try {
 	    String vehicleRegNumber = getVehichleRegNumber();

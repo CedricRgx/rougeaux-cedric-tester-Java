@@ -12,11 +12,22 @@ import com.parkit.parkingsystem.constants.DBConstants;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.model.ParkingSpot;
 
+/**
+ * The ParkingSpotDAO class is used to interact between the ParkingSpot objects
+ * and the database
+ */
 public class ParkingSpotDAO {
     private static final Logger logger = LogManager.getLogger("ParkingSpotDAO");
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+    /**
+     * This method finds the next available spot in the parking for the vehicle
+     * 
+     * @param ParkingType object
+     * 
+     * @return the ID of the available spot
+     */
     public int getNextAvailableSlot(ParkingType parkingType) {
 	Connection con = null;
 	int result = -1;
@@ -39,6 +50,13 @@ public class ParkingSpotDAO {
 	return result;
     }
 
+    /**
+     * This method updates the spot in the parking of the vehicle
+     * 
+     * @param ParkingSpot object
+     * 
+     * @return a boolean value on the successful execution of the database update
+     */
     public boolean updateParking(ParkingSpot parkingSpot) {
 	// update the availability for that parking slot
 	Connection con = null;

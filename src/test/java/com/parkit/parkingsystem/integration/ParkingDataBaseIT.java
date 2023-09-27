@@ -28,6 +28,9 @@ import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
+/**
+ * The ParkingDataBaseIT class is used to do integration test of the program
+ */
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
@@ -65,6 +68,13 @@ public class ParkingDataBaseIT {
 
     }
 
+    /**
+     * This method tests the process of park a vehicle
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test
     public void testParkingACar() throws Exception {
 	// GIVEN
@@ -79,6 +89,13 @@ public class ParkingDataBaseIT {
 	// with availability
     }
 
+    /**
+     * This method tests the process of exit a vehicle
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test
     public void testParkingLotExit() throws Exception {
 	// GIVEN
@@ -107,6 +124,13 @@ public class ParkingDataBaseIT {
 	assertNotEquals(0, ticketSaved.getPrice()); // check that the fare is generated
     }
 
+    /**
+     * This method tests the process of exit a vehicle with an discount
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test
     public void testParkingLotExitRecurringUser() throws Exception {
 	// GIVEN

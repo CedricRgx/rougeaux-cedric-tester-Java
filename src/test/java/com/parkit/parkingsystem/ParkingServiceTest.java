@@ -25,6 +25,9 @@ import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 
+/**
+ * The ParkingServiceTest class is used to test the ParkingService class
+ */
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
 
@@ -55,6 +58,13 @@ public class ParkingServiceTest {
 	}
     }
 
+    /**
+     * This method tests the process of exit of a vehicle
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test
     public void processExitingVehicleTest() throws Exception {
 	// GIVEN
@@ -71,6 +81,13 @@ public class ParkingServiceTest {
 	verify(parkingSpotDAO, times(1)).updateParking(any(ParkingSpot.class));
     }
 
+    /**
+     * This method tests the process of entry of a vehicle
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test
      public void testProcessIncomingVehicle() throws Exception {
 	 // GIVEN
@@ -91,6 +108,13 @@ public class ParkingServiceTest {
          verify(ticketDAO, times(1)).saveTicket(any(Ticket.class));
      }
 
+    /**
+     * This method tests the process of exit of a vehicle with an unable update of the database
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test public void processExitingVehicleTestUnableUpdate() throws Exception {
 	// GIVEN
 	when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
@@ -104,6 +128,13 @@ public class ParkingServiceTest {
 	verify(ticketDAO, times(1)).updateTicket(ticket); 
      }
 
+    /**
+     * This method tests the identification of an available parking
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test
     public void testGetNextParkingNumberIfAvailable() {
 	// GIVEN
@@ -120,6 +151,13 @@ public class ParkingServiceTest {
 	assertTrue(parkingSpoted.isAvailable());
     }
 
+    /**
+     * This method tests the lack of an available parking
+     * 
+     * @param none
+     * 
+     * @return void
+     */
     @Test
     public void testGetNextParkingNumberIfAvailableParkingNumberNotFound() {
 	// GIVEN
@@ -133,6 +171,12 @@ public class ParkingServiceTest {
 	assertNull(parkingSpot);
     }
 
+    /**
+     * This method tests the identification of an available parking with a wrong argument
+     * @param none
+     * 
+     * @return void
+     */
     @Test
     public void testGetNextParkingNumberIfAvailableParkingNumberWrongArgument() {
 	// GIVEN

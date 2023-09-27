@@ -11,10 +11,20 @@ import org.apache.logging.log4j.Logger;
 
 import com.parkit.parkingsystem.config.DataBaseConfig;
 
+/**
+ * The DataBaseTestConfig class is used to interact with the test database
+ */
 public class DataBaseTestConfig extends DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseTestConfig");
 
+    /**
+     * This method creates the test database connection
+     * 
+     * @param none
+     * 
+     * @return Connection object
+     */
     public Connection getConnection() throws ClassNotFoundException, SQLException {
 	logger.info("Create DB connection");
 	Class.forName("com.mysql.cj.jdbc.Driver");
@@ -23,6 +33,13 @@ public class DataBaseTestConfig extends DataBaseConfig {
 		"root", "rootroot");
     }
 
+    /**
+     * This method closes the test database connection
+     * 
+     * @param Connection object
+     * 
+     * @return void
+     */
     public void closeConnection(Connection con) {
 	if (con != null) {
 	    try {
@@ -34,6 +51,13 @@ public class DataBaseTestConfig extends DataBaseConfig {
 	}
     }
 
+    /**
+     * This method closes the object for to interact with test database
+     * 
+     * @param PreparedStatement object
+     * 
+     * @return void
+     */
     public void closePreparedStatement(PreparedStatement ps) {
 	if (ps != null) {
 	    try {
@@ -45,6 +69,13 @@ public class DataBaseTestConfig extends DataBaseConfig {
 	}
     }
 
+    /**
+     * This method closes the result of the interaction with test database
+     * 
+     * @param ResultSet object
+     * 
+     * @return void
+     */
     public void closeResultSet(ResultSet rs) {
 	if (rs != null) {
 	    try {
