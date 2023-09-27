@@ -108,6 +108,7 @@ public class ParkingService {
 	try {
 	    String vehicleRegNumber = getVehichleRegNumber();
 	    Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
+	    logger.info("Appel à processExitingVehicle avec le véhicule : " + vehicleRegNumber);
 	    Date outTime = new Date();
 	    ticket.setOutTime(outTime);
 

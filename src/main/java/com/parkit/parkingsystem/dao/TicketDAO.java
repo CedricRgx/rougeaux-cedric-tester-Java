@@ -96,6 +96,7 @@ public class TicketDAO {
 	    PreparedStatement ps = con.prepareStatement(DBConstants.COUNT_TICKET);
 	    ps.setString(1, regVehicle);
 	    ResultSet rs = ps.executeQuery();
+	    logger.info("Appel à getNbTicket pour le véhicule => " + regVehicle);
 	    if (rs.next()) {
 		nbTicket = rs.getInt(1);
 	    }
