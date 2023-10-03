@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem.integration;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
@@ -52,7 +54,7 @@ public class ParkingDataBaseIT {
 	parkingSpotDAO = new ParkingSpotDAO();
 	parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
 	ticketDAO = new TicketDAO();
-	ticketDAO.dataBaseConfig = dataBaseTestConfig;
+	ticketDAO.setDataBaseConfig(dataBaseTestConfig);
 	dataBasePrepareService = new DataBasePrepareService();
     }
 
@@ -134,9 +136,7 @@ public class ParkingDataBaseIT {
     @Test
     public void testParkingLotExitRecurringUser() throws Exception {
 	// GIVEN
-	// testParkingACar();
 	ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-
 	ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
 	// ticket of the first entry of the vehicle
@@ -166,14 +166,19 @@ public class ParkingDataBaseIT {
 	// WHEN
 	parkingService.processExitingVehicle();
 
+	double inHour = ticketDAO.getTicket(secondTicket.getVehicleRegNumber()).getInTime().getTime();
+	double outHour = ticketDAO.getTicket(secondTicket.getVehicleRegNumber()).getOutTime().getTime();
+	double duration = (outHour - inHour) / (1000 * 60 * 60);
+	double expectedPrice = Math.floor((0.95 * duration * Fare.CAR_RATE_PER_HOUR) * 100) / 100;
+	double price = Math.floor(ticketDAO.getTicket(secondTicket.getVehicleRegNumber()).getPrice() * 100) / 100;
+
 	// THEN
-	// assertNotNull(ticketDAO.getTicket("ABCDEF").getOutTime()); // check that the
-	// out time is populated in the
-	// database
-	// assertNotEquals(0, initialTicket.getPrice()); // check that the fare is
+	assertNotNull(ticketDAO.getTicket(secondTicket.getVehicleRegNumber()).getOutTime()); // check that the out time
+											     // is populated in the
+											     // database
+
+	assertEquals(expectedPrice, price); // check
+	// that the fare is
 	// generated
-
-	// THEN
-
     }
 }

@@ -20,8 +20,6 @@ public class ParkingService {
 
     private static final Logger logger = LogManager.getLogger("ParkingService");
 
-    private static FareCalculatorService fareCalculatorService = new FareCalculatorService();
-
     private InputReaderUtil inputReaderUtil;
     private ParkingSpotDAO parkingSpotDAO;
     private TicketDAO ticketDAO;
@@ -50,8 +48,6 @@ public class ParkingService {
 
 		Date inTime = new Date();
 		Ticket ticket = new Ticket();
-		// ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
-		// ticket.setId(ticketID);
 		ticket.setParkingSpot(parkingSpot);
 		ticket.setVehicleRegNumber(vehicleRegNumber);
 		ticket.setPrice(0);
@@ -146,9 +142,9 @@ public class ParkingService {
      */
     public void processExitingVehicle() {
 	try {
+	    FareCalculatorService fareCalculatorService = new FareCalculatorService(ticketDAO);
 	    String vehicleRegNumber = getVehichleRegNumber();
 	    Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
-	    logger.info("Appel à processExitingVehicle avec le véhicule : " + vehicleRegNumber);
 	    Date outTime = new Date();
 	    ticket.setOutTime(outTime);
 

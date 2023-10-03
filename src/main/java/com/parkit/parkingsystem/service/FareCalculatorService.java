@@ -14,6 +14,18 @@ public class FareCalculatorService {
 
     private static final Logger logger = LogManager.getLogger("FareCalculatorService");
 
+    private TicketDAO ticketDAO;
+
+    public FareCalculatorService() {
+	super();
+	this.ticketDAO = new TicketDAO();
+    }
+
+    public FareCalculatorService(TicketDAO ticketDAO) {
+	super();
+	this.ticketDAO = ticketDAO;
+    }
+
     /**
      * This method checks if a discount have to be applied on the parking price
      * 
@@ -23,8 +35,6 @@ public class FareCalculatorService {
      */
     public void calculateFare(Ticket ticket) {
 
-	TicketDAO ticketDAO = new TicketDAO();
-	logger.info("Appel à getNbTicket() depuis calculateFare() avec le véhicule : " + ticket.getVehicleRegNumber());
 	if (ticketDAO.getNbTicket(ticket.getVehicleRegNumber()) > 1) { // the vehicle has been already parked, then it
 								       // has a 5% discount
 	    calculateFare(ticket, true);
